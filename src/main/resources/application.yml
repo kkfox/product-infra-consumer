@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+product-infra-service:
+  ribbon:
+    KubernetesNamespace: demo  (k8s namespace,实际根据自己服务部署的namespace配置对应的名字)
+
+backend:
+  ribbon: 
+    eureka:
+      enabled: false
+    client:
+      enabled: true
+    ServerListRefreshInterval: 5000
+
+hystrix:
+  command:
+    BackendCall:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+  threadpool:
+    BackendCallThread:
+      coreSize: 5
+feign:
+  hystrix:
+    enabled: true
